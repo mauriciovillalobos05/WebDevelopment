@@ -1,0 +1,49 @@
+.rpage-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    gap: 30px;
+}
+
+.register-container {
+    background-color: rgba(61, 43, 31, 0.95);
+    border: 2px solid #d2a679;
+    border-radius: 20px;
+    padding: 30px 40px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.register-container h1,
+.register-container h2 {
+    margin: 0;
+    font-weight: bold;
+    color: #d2a679;
+}
+
+.register-container label {
+display: flex;
+flex-direction: column;
+font-size: 16px;
+color: #fff0e1;
+}
+
+.register-container input {
+padding: 8px 12px;
+margin-top: 6px;
+border-radius: 10px;
+border: none;
+background-color: #fef5e7;
+color: #3d2b1f;
+font-family: inherit;
+}
+
+.register-container input:focus {
+outline: none;
+border: 2px solid #d2a679;
+background-color: #fffaf2;
+}
+  
