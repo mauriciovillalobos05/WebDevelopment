@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import './App.css';
 import { getToken } from './getToken';
 import { authFlow, getDataAuth } from './setup';
@@ -6,6 +7,7 @@ import { useEffect, useState } from 'react';
 function App() {
   const [hasCode, setHasCode] = useState(false);
 
+  const navigate=useNavigate();
   const handleSetup = async () => {
     const codeChallenge = await getDataAuth();
     console.log("Code Challenge:", codeChallenge);
@@ -14,6 +16,7 @@ function App() {
 
   const handleGetToken = () => {
     getToken();
+    navigate('/dashboard')
   };
 
   return (
