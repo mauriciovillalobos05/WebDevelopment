@@ -70,8 +70,8 @@ const Dashboard = () => {
   }
 
   return (
-    <>
-      <div>Dashboard</div>
+    <div className="container">
+      <h1>Dashboard</h1>
       <button onClick={getDeviceId}>GET DEVICE ID</button>
       <p>Search</p>
       <input
@@ -81,33 +81,25 @@ const Dashboard = () => {
         onChange={handleChange}
       />
       <p>Select Types:</p>
-      <select name="types" value={search.types} onChange={handleChange} >
+      <select name="types" value={search.types} onChange={handleChange}>
         {selectTypes.map((type) => (
           <option key={type} value={type}>
             {type}
           </option>
         ))}
       </select>
-
       <button onClick={handleSearch}>Search</button>
 
       {results.map((result, idx) => (
-        <div key={idx}>
-            <div>
-                <img 
-                    src={result.album.images[0].url}
-                    width={150}
-                />
-            </div>
-            <div>
-                <p>{result.album.name}</p>
-            </div>
-            <div>
-                <button onClick={() => handlePlay(result.uri)}>Play </button>
-            </div>
+        <div key={idx} className="song-result">
+          <img src={result.album.images[0].url} width={150} />
+          <div style={{ marginLeft: '1rem' }}>
+            <p>{result.album.name}</p>
+            <button onClick={() => handlePlay(result.uri)}>Play</button>
+          </div>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

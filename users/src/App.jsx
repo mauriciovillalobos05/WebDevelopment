@@ -20,11 +20,11 @@ function App() {
   };
 
   return (
-    <>
-      <h1>Hola Mund34</h1>
+    <div className="container">
+      <h1>Spotify Login</h1>
       <button onClick={handleSetup}>START SETUP</button>
       <button onClick={handleGetToken}>GET TOKEN</button>
-    </>
+    </div>
   );
 }
 
