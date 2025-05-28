@@ -63,4 +63,73 @@ export const Register = () => {
   );
 };
 
+
+
+// import register from "./assets/"
+const Register = () => {
+  const [form, setForm] = useState({
+    firstName: '',
+    // lastName: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+    const newForm = {
+      ...form,
+      [name]: value,
+    };
+
+    setForm(newForm);
+  };
+
+  return (
+    <>
+      <div>Register</div>
+      <div style={{ display: 'flex' }}>
+        <div>{/* <img src={register} /> */}</div>
+        <div>
+          <label>
+            First Name:
+            <input
+              type="text"
+              name="firstName"
+              onChange={handleChange}
+              value={form.name}
+            />
+          </label>
+          {/* <label>
+            Last Name:
+            <input
+              type="text"
+              name="lastName"
+              onChange={handleChange}
+              value={form.name}
+            />
+          </label> */}
+          <label>
+            Email:
+            <input
+              type="text"
+              name="email"
+              onChange={handleChange}
+              value={form.name}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              onChange={handleChange}
+              value={form.name}
+            />
+          </label>
+        </div>
+      </div>
+    </>
+  );
+};
+
 export default Register;
