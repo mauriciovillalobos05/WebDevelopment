@@ -19,6 +19,16 @@ function App() {
     navigate('/dashboard')
   };
 
+ const getUsers = async() => {
+  const url = "http://localhost:3000/api/users";
+   const res = await spotifyAPI(url, 'GET', null);
+   console.log(res);
+ }
+
+  useEffect(() => {
+    getUsers();
+  }, [])
+
   return (
     <div className="container">
       <h1>Spotify Login</h1>
