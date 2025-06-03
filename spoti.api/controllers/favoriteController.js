@@ -34,7 +34,7 @@ export default class FavoriteController {
         const newFavorite = await favoriteModel.createFavorite(favoriteData);
         res.status(201).json(newFavorite);
         } catch (error) {
-        console.error('Error fetching favorites:', error);
+        console.error('Error creating favorites:', error);
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
@@ -46,7 +46,7 @@ export default class FavoriteController {
             const updateFavorite = await favoriteModel.updateFavorite(id, favoriteData);
             res.status(200).json(updateFavorite);
         } catch (error) {
-        console.error('Error fetching favorite:', error);
+        console.error('Error updating favorite:', error);
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }

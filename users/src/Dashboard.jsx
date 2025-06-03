@@ -19,6 +19,7 @@ const Dashboard = () => {
   const [deviceID, setDeviceID]=useState("");
 
   const [results, setResults] = useState([]);
+  const [favorites, setFavorites]=useState([]);
 
   const handleChange = (e) => {
 
@@ -69,10 +70,37 @@ const Dashboard = () => {
     console.log(play);
   }
 
+  const handleAddFavorite = async(favorite) => {
+    const isAlreadyFav=favorites.some((fav)=>fav.id === favorite.id);
+
+    if(isAlreadyFav){
+      console.log("ya estaba en favs");
+      setFavorites((prev)=> prev.filter((el)=>el.id!==favorite.id))
+    }else {
+      setFavorites((prev)=> [...prev, favorite]);
+    }
+  }
+
+  const createFavs = async (favs) =>{
+    const userId=2;
+    const url= `http://localhost:3000/api/favorites/${userId}`
+
+    const data = {
+      items: favs,
+    }
+    const result = await spotifyAPI(url, 'POST', JSON.stringify(data), null);
+    console.log(result)
+  }
+
+  const saveFavs = async() => {
+    createFavs(favorites)
+  }
+
   return (
     <div className="container">
       <h1>Dashboard</h1>
       <button onClick={getDeviceId}>GET DEVICE ID</button>
+      <button onClick={saveFavs}>SAVE FAVS</button>
       <p>Search</p>
       <input
         name="song"
@@ -96,6 +124,7 @@ const Dashboard = () => {
           <div style={{ marginLeft: '1rem' }}>
             <p>{result.album.name}</p>
             <button onClick={() => handlePlay(result.uri)}>Play</button>
+            <button onClick={() => handleAddFavorite(result)}>Add Favorite</button>
           </div>
         </div>
       ))}
