@@ -1,16 +1,13 @@
 export const getDataAuth = async () => {
   const generateRandomString = (length) => {
-    const possible =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const values = crypto.getRandomValues(new Uint8Array(length));
-    return values.reduce((acc, x) => acc + possible[x % possible.length], '');
+    return Array.from(values).map(x => possible[x % possible.length]).join('');
   };
 
   const codeVerifier = generateRandomString(64);
-
-  console.log({ codeVerifier });
-    // generated in the previous step
-    window.localStorage.setItem('code_verifier', codeVerifier);
+  window.localStorage.setItem('code_verifier', codeVerifier);
+  console.log("Code Verifier generado:", codeVerifier);
 
   const sha256 = async (plain) => {
     const encoder = new TextEncoder();
@@ -32,11 +29,10 @@ export const getDataAuth = async () => {
 
 export const authFlow = (codeChallenge) => {
   const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-  const redirectUri = 'http://127.0.0.1:3001/';
+  const redirectUri = 'http://127.0.0.1:3001/callback';
 
   const scope = 'user-read-playback-state user-modify-playback-state user-read-private user-read-email';
   const authUrl = new URL('https://accounts.spotify.com/authorize');
-
 
   const params = {
     response_type: 'code',

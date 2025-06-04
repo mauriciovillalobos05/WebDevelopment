@@ -1,14 +1,17 @@
 export const getToken = async () => {
-  const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
   const urlParams = new URLSearchParams(window.location.search);
-  let code = urlParams.get('code');
-
+  const code = urlParams.get('code');
   const codeVerifier = localStorage.getItem('code_verifier');
 
-  const clientId = client_id;
-  // const redirectUri = 'https://3s83z5f3-5173.usw3.devtunnels.ms/';
-  const redirectUri = 'http://127.0.0.1:3001/';
+  if (!code || !codeVerifier) {
+    throw new Error('Faltan parámetros: code o code_verifier');
+  }
+
+  const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
+  const redirectUri = 'http://127.0.0.1:3001/callback';
+
   const url = 'https://accounts.spotify.com/api/token';
+
   const payload = {
     method: 'POST',
     headers: {
@@ -23,10 +26,15 @@ export const getToken = async () => {
     }),
   };
 
-  const body = await fetch(url, payload);
-  const response = await body.json();
+  const responseRaw = await fetch(url, payload);
+  const response = await responseRaw.json();
 
-  console.log(response);
+  if (!responseRaw.ok) {
+    throw new Error(`Error en token: ${JSON.stringify(response)}`);
+  }
 
   localStorage.setItem('access_token', response.access_token);
+  localStorage.removeItem('code_verifier'); // Limpia para que no se reutilice
+
+  return response.access_token;
 };

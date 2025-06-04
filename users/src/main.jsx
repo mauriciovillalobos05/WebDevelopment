@@ -5,8 +5,9 @@ import App from './App.jsx'
 import { BrowserRouter, Routes, Route } from "react-router";
 import Login from './Login.jsx';
 import Register from './Register.jsx';
-import Dashboard
- from './dashboard.jsx';
+import Dashboard from './dashboard.jsx';
+import Callback from './callback.jsx';
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/callback" element={<Callback />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

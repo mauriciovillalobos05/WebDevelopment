@@ -11,24 +11,21 @@ const favoriteModel = {
         return result.rows[0];
     },
 
-    createFavorite: async (favoriteData) => {
-        const { user_id, items } = favoriteData;
+    createFavorite: async ({ user_id, items }) => {
         const result = await pool.query(
-        'INSERT INTO favorites (user_id, items) VALUES ($1, $2) RETURNING *',
-        [user_id, items]
+            'INSERT INTO favorites (user_id, items) VALUES ($1, $2) RETURNING *',
+            [user_id, JSON.stringify(items)]
         );
         return result.rows[0];
     },
 
-    updateUser: async(id, favoriteData) => {
-        const { user_id, items } = favoriteData;
+    updateFavorite: async (id, { user_id, items }) => {
         const result = await pool.query(
-        'UPDATE users SET user_id = $1, items = $2 WHERE id = $3 RETURNING *',
-        [user_id, items, id]
+            'UPDATE favorites SET user_id = $1, items = $2 WHERE id = $3 RETURNING *',
+            [user_id, JSON.stringify(items), id]
         );
         return result.rows[0];
     }
-
 };
 
 export default favoriteModel;

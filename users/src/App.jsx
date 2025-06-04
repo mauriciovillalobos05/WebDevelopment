@@ -1,22 +1,21 @@
 import { useNavigate } from 'react-router';
 import './App.css';
-import { getToken } from './getToken';
 import { authFlow, getDataAuth } from './setup';
 import { useEffect, useState } from 'react';
+import Register from './Register';
+import Login from './Login';
 
 function App() {
   const [hasCode, setHasCode] = useState(false);
 
   const navigate=useNavigate();
-  const handleSetup = async () => {
-    const codeChallenge = await getDataAuth();
-    console.log("Code Challenge:", codeChallenge);
-    authFlow(codeChallenge); // redirects to Spotify
+
+  const handleRegister = () => {
+    navigate('/register')
   };
 
-  const handleGetToken = () => {
-    getToken();
-    navigate('/dashboard')
+  const handleLogin = () => {
+    navigate('/login')
   };
 
  const getUsers = async() => {
@@ -32,10 +31,13 @@ function App() {
   return (
     <div className="container">
       <h1>Spotify Login</h1>
-      <button onClick={handleSetup}>START SETUP</button>
-      <button onClick={handleGetToken}>GET TOKEN</button>
+      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleRegister}>Register</button>
     </div>
   );
 }
 
 export default App;
+
+//<button onClick={handleSetup}>START SETUP</button>
+//<button onClick={handleGetToken}>GET TOKEN</button>
